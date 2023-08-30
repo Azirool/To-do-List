@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-   <h1><%= todayDate %></h1>
 
-   <ul>
-    <% for (var i = 0; i < newItems.length;i++) { %>
-        <li><%= newItems[i] %></li>
-    <% } %>
-   </ul>
-   <form action="/" method="post">
-        <input type="text" name="todoInput" placeholder="To Do">
-        <button type="submit"> Enter!</button>
-   </form>
+    <div class="box" id="heading">
+        <h1><%= todayDate %></h1>
+    </div>
+
+    <div class="box">
+
+        <% for (let i = 0; i < newItems.length;i++) { %>
+            <div class="item">
+                <input type="checkbox">
+                <p><%= newItems[i] %></p>
+            </div>
+        <% } %>
+
+        <form class="item" action="/" method="post">
+            <input type="text" name="todoInput" placeholder="New Item" autocomplete="off">
+            <button type="submit">+</button>
+       </form>
+
+    </div>
 </body>
 </html>
