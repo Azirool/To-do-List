@@ -22,11 +22,11 @@ A simple and customizable To-Do List web application built with JavaScript, EJS,
 - **Mongoose:** An ODM (Object Data Modeling) library for MongoDB.
 - **MongoDB Atlas:** A cloud-based database service for data storage.
 
-# Usage
+## Usage
 - To create a new to-do list, simply add its name to the URL (e.g., http://localhost:3000/my-new-list).
 - Add tasks by typing them into the input field and clicking "+"
 - Delete tasks by checking the checkbox.
 
-# Acknowledgments
+## Acknowledgments
 - This project was created as a learning exercise.
 - Special thanks to Node.js, Express.js, and MongoDB for their fantastic tools.
