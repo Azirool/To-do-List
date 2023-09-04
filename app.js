@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const date = require(__dirname + "/date.js")
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 //Express
 const app = express();
@@ -49,10 +50,12 @@ const listSchema = {
 //Collection/table for MongoDB
 const List = mongoose.model("List", listSchema);
 
+
+//Date JS
+let day = date();
+
 //Home Route
 app.get("/", (req, res) => {
-    //Date JS
-    let day = date();
     //Read data from MongoDB using Mongoose
     Item.find({}).then((foundItems) => {
         if(foundItems.length === 0){
@@ -70,7 +73,7 @@ app.get("/", (req, res) => {
 //Custom Route
 app.get("/:customListPage", (req,res) => {
     //Store what user type in the search bar
-    const customListPage = req.params.customListPage;
+    const customListPage = _.capitalize(req.params.customListPage);
 
     //Check for existing data
     List.findOne({name:customListPage}).then((result) =>{
@@ -95,8 +98,6 @@ app.get("/:customListPage", (req,res) => {
 
 //Handle post request from HTML file
 app.post("/", (req, res) => {
-    //Date JS
-    let day = date();
     //Store input from HTML textbox input
     const itemName = req.body.todoInput;
     //Store input from HTML buttom
@@ -129,15 +130,40 @@ app.post("/", (req, res) => {
 app.post("/delete", (req,res) => {
     //Store data from HTML checkbox input
     const checkItem = req.body.checkbox;
-    //Search and delete data based on the HTML checkbox input
-    Item.findByIdAndRemove(checkItem).exec().then(() => {
-        console.log("Data deleted");
-        //Redirect page
-        res.redirect("/");
-    }).catch((err) => {
-        //Show error
-        console.log(err);
-    });
+    //Store data from HTML hidden input
+    const listName = req.body.listName;
+
+    if(listName === day){
+        //Search and delete data based on the HTML checkbox input
+        Item.findByIdAndRemove(checkItem).exec().then(() => {
+            console.log("Data deleted");
+            //Redirect page
+            res.redirect("/");
+        }).catch((err) => {
+            //Show error
+            console.log(err);
+        });
+    } else{
+        //Search and delete data based on the HTML checkbox input and hidden input
+        List.findOneAndUpdate({
+            //Condition
+            name: listName
+        }, {
+            $pull: {
+                //Value
+                items: {
+                    _id: checkItem
+                }
+            }
+        }).exec().then((foundList) => {
+            //Redirect page
+            res.redirect("/" + listName);
+        }).catch((err) => {
+            //Show error
+            console.log(err);
+        })
+    }
+    
 });
 
 //Start express server
