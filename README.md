@@ -18,10 +18,9 @@ Before you begin, ensure you have met the following requirements:
 
 # Usage
 
-- To create a new list, simply add its name to the URL (e.g., http://- localhost:3000/my-new-list).
-- To add items to a list, type the item in the input field and click the "Add" button.
-- To delete an item, click the checkbox next to it and click the "Delete" button.
-- To reset a list to its default items, visit the list and click the "Reset" button.
+- To create a new list, simply add its name to the URL (e.g., http://localhost:3000/my-new-list).
+- To add items to a list, type the item in the input field and click the "+" button.
+- To delete an item, click the checkbox next to it.
 
 # Contributing
 
