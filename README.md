@@ -29,5 +29,5 @@ Contributions are welcome! Please feel free to submit issues, fork the repositor
 
 # Acknowledgments
 
-- This project was created as a learning exercise and is not meant for production use.
+- This project was created as a learning exercise.
 - Special thanks to Node.js, Express.js, and MongoDB for their fantastic tools.
